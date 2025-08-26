@@ -236,7 +236,7 @@ function render(){
   const tbody = $('#result tbody');
   for(const ch of chars){
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="char">${ch}</td><td><a href="${idiomLink(ch)}" target="_blank" rel="noopener">包含「${ch}」的成語</a></td>`;
+    tr.innerHTML = `<td class="char">${ch}</td><td><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>`;
     tbody.appendChild(tr);
   }
 }
