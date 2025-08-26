@@ -79,7 +79,7 @@
                                                                                                     
     成語資料來源為教育部《成語典》
     （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">著作權</a>／
-    <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）。<br>
+    <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）。
     各連結頁內容與權利皆屬原網站所有。
   </small>
 </footer>
@@ -234,7 +234,7 @@ function render(){
   const chars = (window.CURRENT_DATA||{})[les] || [];
   const id = pediaId(term, grade, pub, les);
   const lessonURL = `https://pedia.cloud.edu.tw/Bookmark/TCollection?TextNameId=${id}`;
-  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>｜<a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note"> <br>《教育百科》生字詞彙表</span>`;
+  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong> <br> <a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note"> <br>《教育百科》生字詞彙表</span>`;
   $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
   const tbody = $('#result tbody');
   for(const ch of chars){
