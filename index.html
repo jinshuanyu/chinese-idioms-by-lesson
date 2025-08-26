@@ -34,10 +34,10 @@
     th{background:#fff; position:sticky; top:0;}
     /* 生字欄更窄、字再大一點點 */
     #result th:first-child{width:6rem;}
-    #result td.char{font-size:28px; font-weight:700; letter-spacing:2px; white-space:nowrap;}
+    #result td.char{font-size:24px; font-weight:700; letter-spacing:2px; white-space:nowrap;}
     /* 成語欄吃剩餘寬度、字體更大 */
     #result thead th{ font-size:17px; }
-    #result td.idioms{font-size:18px; line-height:1.9;}
+    #result td.idioms{font-size:20px; line-height:1.9;}
 
     td a{color:#0d6efd; text-decoration:none;}
     .muted{color:var(--muted); font-size:12px;}
@@ -75,10 +75,10 @@
 <footer id="legal">
   <small>
     生字清單來自教育雲「教育百科」
-    （<a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">版權說明</a>）；
+    （<a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">版權說明</a>）；<br>
     成語資料來源為教育部《成語典》
     （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">著作權</a>／
-    <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）。
+    <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）。<br>
     各連結頁內容與權利皆屬原網站所有。
   </small>
 </footer>
@@ -233,7 +233,7 @@ function render(){
   const chars = (window.CURRENT_DATA||{})[les] || [];
   const id = pediaId(term, grade, pub, les);
   const lessonURL = `https://pedia.cloud.edu.tw/Bookmark/TCollection?TextNameId=${id}`;
-  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>｜<a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note">《教育百科》生字詞彙表</span>`;
+  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>｜<a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note"> <br>《教育百科》生字詞彙表</span>`;
   $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
   const tbody = $('#result tbody');
   for(const ch of chars){
