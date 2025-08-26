@@ -39,7 +39,7 @@
 <body>
   <header>
     <h1>國小國語生字 ➜ 《成語典》</h1>
-    <p class="sub">選擇 <b>學期</b> → <b>年級</b> → <b>版本</b> → <b>課別</b>，查看每個生字的《成語典》連結。</p>
+    <p class="sub">選 <b>學期</b> → <b>年級</b> → <b>版本</b> → <b>課別</b>，查看每個生字的《成語典》連結。</p>
   </header>
 
   <div class="container">
@@ -67,23 +67,36 @@
     </div>
   </div>
 
-  <footer>
-    <p class="muted">
-      本頁僅提供連結與自備 JSON 生字清單；未重製教育百科或《成語典》內容。資料來源：教育雲 pedia、教育部《成語典》。
-    </p>
-  </footer>
+<footer id="legal">
+  <small>
+    本頁僅提供課次索引與外部連結；生字清單為自行整理之事實資料，未重製教育百科/《成語典》內容。來源：
+    教育雲「教育百科」
+    （<a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">版權說明</a>）；
+    教育部《成語典》
+    （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">著作權</a>、
+     <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權</a>）。
+    連結頁之內容與權利屬原網站所有；如需超出授權範圍之利用，請逕洽權利人。
+  </small>
+</footer>
+
+<style>
+  #legal{margin-top:16px;padding-top:12px;border-top:1px dashed #ddd;color:#555}
+  #legal small{font-size:12px;line-height:1.6}
+  #legal a{text-decoration:underline}
+</style>
+
 
 <script>
 // ===== 設定：學期、出版商、年級碼 =====
 const TERMS = [
-  { label:"114 學年度上學期", code:"11401" }
+  { label:"114 學年上學期", code:"11401" }
 ];
 const PUB_CODE = { "南一":"0102", "康軒":"0103", "翰林":"0101" };
 const GRADE_CODE = { "一年級":"01","二年級":"02","三年級":"03","四年級":"04","五年級":"05","六年級":"06" };
 
 // ===== CATALOG：完整佔位（命名規範：data/11401/data_11401_<出版社>_<年級>.json） =====
 const CATALOG = {
-  "114 學年度上學期": {
+  "114 學年上學期": {
     "一年級": {
       "康軒": "data/11401/data_11401_康軒_一年級.json",
       "南一": "data/11401/data_11401_南一_一年級.json",
@@ -175,7 +188,7 @@ function resetSelect(id){ $(id).innerHTML = '<option value="">—</option>'; }
 function init(){
   const termSel = $('#term');
   termSel.innerHTML = termsSortedDesc().map(x=>`<option>${x}</option>`).join('');
-  termSel.value = "114 學年度上學期";
+  termSel.value = "114 學年上學期";
   updateGrades();
 }
 
@@ -218,12 +231,12 @@ function render(){
   const chars = (window.CURRENT_DATA||{})[les] || [];
   const id = pediaId(term, grade, pub, les);
   const lessonURL = `https://pedia.cloud.edu.tw/Bookmark/TCollection?TextNameId=${id}`;
-  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>｜<a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note">（教育百科：本課生字詞彙表）</span>`;
+  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>｜<a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note">《教育百科》生字詞彙表</span>`;
   $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
   const tbody = $('#result tbody');
   for(const ch of chars){
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="char">${ch}</td><td><a href="${idiomLink(ch)}" target="_blank" rel="noopener">查「${ch}」的成語</a></td>`;
+    tr.innerHTML = `<td class="char">${ch}</td><td><a href="${idiomLink(ch)}" target="_blank" rel="noopener">包含「${ch}」的成語</a></td>`;
     tbody.appendChild(tr);
   }
 }
