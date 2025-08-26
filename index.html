@@ -26,10 +26,17 @@
     #meta{margin:10px 0 6px; font-size:15px;}
     #meta a{color:#0d6efd; text-decoration:none; border-bottom:1px dotted #9bbcff;}
     #meta .note{color:var(--muted); font-size:13px; margin-left:6px;}
+
+    /* 表格與欄位調整 */
     table{width:100%; border-collapse:collapse; margin-top:8px;}
     th, td{border-bottom:1px solid var(--border); padding:10px 8px; text-align:left;}
     th{background:#fff; position:sticky; top:0;}
-    td.char{font-size:28px; font-weight:700; letter-spacing:2px;} /* 生字放大 */
+    /* 生字欄更窄、字再大一點點 */
+    #result th:first-child{width:6rem;}
+    #result td.char{font-size:30px; font-weight:700; letter-spacing:2px; white-space:nowrap;}
+    /* 成語欄吃剩餘寬度、字體大一點點 */
+    #result td.idioms{font-size:17px; line-height:1.8;}
+
     td a{color:#0d6efd; text-decoration:none;}
     .muted{color:var(--muted); font-size:12px;} /* 版權縮小 */
     footer{max-width:960px; margin:12px auto 36px; padding:0 16px; text-align:center;}
@@ -45,13 +52,9 @@
   <div class="container">
     <div class="card">
       <div class="row">
-
         <select id="term"></select>
-
         <select id="grade"></select>
-
         <select id="publisher"></select>
-
         <select id="lesson"></select>
         <span id="stats" class="pill"></span>
       </div>
@@ -60,7 +63,7 @@
 
       <table id="result">
         <thead>
-          <tr><th style="width:120px">生字</th><th>《成語典》</th></tr>
+          <tr><th>生字</th><th>《成語典》</th></tr>
         </thead>
         <tbody></tbody>
       </table>
@@ -84,7 +87,6 @@
   #legal small{font-size:12px;line-height:1.6}
   #legal a{text-decoration:underline}
 </style>
-
 
 <script>
 // ===== 設定：學期、出版商、年級碼 =====
@@ -170,7 +172,6 @@ async function ensureDataset(term, grade, pub){
   const key = `${term}|${grade}|${pub}`;
   if(CACHE.has(key)) return CACHE.get(key);
   let data = {};
-  // 支援以顯示文字或學期碼查 CATALOG
   const url = (CATALOG?.[term]?.[grade]?.[pub]) || (CATALOG?.[termCode(term)]?.[grade]?.[pub]);
   if(url){
     try{
@@ -216,7 +217,6 @@ async function updateLessons(){
   window.CURRENT_DATA = data;
   let lessons = Object.keys(data||{});
   if(!lessons.length){
-    // 沒有 JSON 就先提供課號清單，供連去教育百科（不顯示生字）
     const n = expectedLessonsCount(grade, pub);
     lessons = Array.from({length:n}, (_,i)=>`第${String(i+1).padStart(2,'0')}課`);
   }
@@ -236,7 +236,7 @@ function render(){
   const tbody = $('#result tbody');
   for(const ch of chars){
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="char">${ch}</td><td><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>`;
+    tr.innerHTML = `<td class="char">${ch}</td><td class="idioms"><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>`;
     tbody.appendChild(tr);
   }
 }
