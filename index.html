@@ -22,7 +22,8 @@
     .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,.04);}
     .row{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:14px;}
     label{font-weight:600; margin-right:6px;}
-    select{min-width:140px; padding:8px 10px; border-radius:12px; border:1px solid var(--border); background:#fff;}
+    /* 下拉選單字體加大 */
+    select{min-width:140px; padding:8px 10px; border-radius:12px; border:1px solid var(--border); background:#fff; font-size:18px;}
     #meta{margin:10px 0 6px; font-size:15px;}
     #meta a{color:#0d6efd; text-decoration:none; border-bottom:1px dotted #9bbcff;}
     #meta .note{color:var(--muted); font-size:13px; margin-left:6px;}
@@ -34,11 +35,12 @@
     /* 生字欄更窄、字再大一點點 */
     #result th:first-child{width:6rem;}
     #result td.char{font-size:30px; font-weight:700; letter-spacing:2px; white-space:nowrap;}
-    /* 成語欄吃剩餘寬度、字體大一點點 */
-    #result td.idioms{font-size:17px; line-height:1.8;}
+    /* 成語欄吃剩餘寬度、字體更大 */
+    #result thead th:nth-child(2){font-size:17px;}
+    #result td.idioms{font-size:18px; line-height:1.9;}
 
     td a{color:#0d6efd; text-decoration:none;}
-    .muted{color:var(--muted); font-size:12px;} /* 版權縮小 */
+    .muted{color:var(--muted); font-size:12px;}
     footer{max-width:960px; margin:12px auto 36px; padding:0 16px; text-align:center;}
     .pill{display:inline-block; background:var(--accent-2); color:#9a3412; padding:2px 8px; border-radius:999px; font-size:12px; margin-left:6px;}
   </style>
@@ -72,13 +74,10 @@
 
 <footer id="legal">
   <small>
-    本頁僅提供課次索引與外部連結；生字清單為自行整理之事實資料，未重製教育百科/《成語典》內容。來源：
-    教育雲「教育百科」
-    （<a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">版權說明</a>）；
+    來源：教育雲「教育百科」
+    （<a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">版權</a>）；
     教育部《成語典》
-    （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">著作權</a>、
-     <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權</a>）。
-    連結頁之內容與權利屬原網站所有；如需超出授權範圍之利用，請逕洽權利人。
+    （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">著作權</a>）。
   </small>
 </footer>
 
@@ -137,7 +136,8 @@ const $ = sel => document.querySelector(sel);
 function termCode(label){ const t=TERMS.find(x=>x.label===label); return t ? t.code : ""; }
 function parseTerm(label){
   if(!label) return {year:0, sem:1};
-  const idx = label.indexOf('學年度');
+  let idx = label.indexOf('學年度');
+  if(idx < 0) idx = label.indexOf('學年'); // 兼容「學年」寫法
   const year = idx>0 ? parseInt(label.slice(0, idx).trim(), 10) : 0;
   const sem = (label.includes('上學期')||label.includes('第一學期')) ? 1 : 2;
   return {year, sem};
