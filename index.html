@@ -45,13 +45,13 @@
   <div class="container">
     <div class="card">
       <div class="row">
-        <label>學期：</label>
+
         <select id="term"></select>
-        <label>年級：</label>
+
         <select id="grade"></select>
-        <label>版本：</label>
+
         <select id="publisher"></select>
-        <label>課別：</label>
+
         <select id="lesson"></select>
         <span id="stats" class="pill"></span>
       </div>
@@ -184,7 +184,7 @@ function updateGrades(){
   $('#meta').textContent=''; $('#stats').textContent='';
   const term=$('#term').value;
   const grades = term ? Object.keys(CATALOG[term] || CATALOG[termCode(term)] || {}) : [];
-  $('#grade').innerHTML = '<option value="">— 請選擇 —</option>' + grades.map(g=>`<option>${g}</option>`).join('');
+  $('#grade').innerHTML = '<option value="">— 請選擇年級 —</option>' + grades.map(g=>`<option>${g}</option>`).join('');
 }
 
 function updatePublishers(){
@@ -192,7 +192,7 @@ function updatePublishers(){
   $('#meta').textContent=''; $('#stats').textContent='';
   const term=$('#term').value, grade=$('#grade').value;
   const pubs = (term && grade) ? Object.keys((CATALOG[term] || CATALOG[termCode(term)] || {})[grade] || {}) : [];
-  $('#publisher').innerHTML = '<option value="">— 請選擇 —</option>' + pubs.map(p=>`<option>${p}</option>`).join('');
+  $('#publisher').innerHTML = '<option value="">— 請選擇版本 —</option>' + pubs.map(p=>`<option>${p}</option>`).join('');
 }
 
 async function updateLessons(){
@@ -208,7 +208,7 @@ async function updateLessons(){
     lessons = Array.from({length:n}, (_,i)=>`第${String(i+1).padStart(2,'0')}課`);
   }
   lessons.sort((a,b)=> (parseInt(lessonNo2(a),10) - parseInt(lessonNo2(b),10)) );
-  $('#lesson').innerHTML = '<option value="">— 請選擇 —</option>' + lessons.map(l=>`<option>${l}</option>`).join('');
+  $('#lesson').innerHTML = '<option value="">— 請選擇課別 —</option>' + lessons.map(l=>`<option>${l}</option>`).join('');
 }
 
 function render(){
