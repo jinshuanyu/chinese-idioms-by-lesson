@@ -234,7 +234,12 @@ function render(){
   const chars = (window.CURRENT_DATA||{})[les] || [];
   const id = pediaId(term, grade, pub, les);
   const lessonURL = `https://pedia.cloud.edu.tw/Bookmark/TCollection?TextNameId=${id}`;
-  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong> <br> <a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note"> <br>《教育百科》生字詞彙表</span>`;
+  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>｜<a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note">《教育百科》生字詞彙表</span>`;
+  (function(){
+    const strokeText = encodeURIComponent(chars.join(''));
+    const strokeURL = `https://stroke-order.learningweb.moe.edu.tw/searchW.jsp?WORD=${strokeText}&la=0`;
+    $('#meta').insertAdjacentHTML('beforeend', `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a>`);
+  })();
   $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
   const tbody = $('#result tbody');
   for(const ch of chars){
