@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>國語生字 🔗 《成語典》</title>
-<style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>國語生字 🔗 《成語典》</title>
+  <style>
     :root{
       --bg:#fffefb;
       --fg:#1b1b1b;
@@ -47,44 +46,50 @@
   </style>
 </head>
 <body>
-<header>
-<h1>國小國語生字 🔗 《成語典》</h1>
-<p class="sub">⏬ 選 <b>學期</b> → <b>年級</b> → <b>版本</b> → <b>課別</b> <br/> 🔍 查看每個生字的《成語典》連結</p>
-</header>
-<div class="container">
-<div class="card">
-<div class="row">
-<select id="term"></select>
-<select id="grade"></select>
-<select id="publisher"></select>
-<select id="lesson"></select>
-<span class="pill" id="stats"></span>
-</div>
-<div id="meta"></div>
-<table id="result">
-<thead>
-<tr><th>生字</th><th>《成語典》</th></tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
-</div>
+  <header>
+    <h1>國小國語生字 🔗 《成語典》</h1>
+    <p class="sub">⏬ 選 <b>學期</b> → <b>年級</b> → <b>版本</b> → <b>課別</b> <br> 🔍 查看每個生字的《成語典》連結</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <div class="row">
+        <select id="term"></select>
+        <select id="grade"></select>
+        <select id="publisher"></select>
+        <select id="lesson"></select>
+        <span id="stats" class="pill"></span>
+      </div>
+
+      <div id="meta"></div>
+
+      <table id="result">
+        <thead>
+          <tr><th>生字</th><th>《成語典》</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
 <footer id="legal">
-<small>
+  <small>
     生字清單來自教育雲「教育百科」
-    （<a href="https://pedia.cloud.edu.tw/Home/CopyRight" rel="noopener" target="_blank">版權說明</a>）；
+    （<a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">版權說明</a>）；
                                                                                                     
     成語檢索連結至教育部《成語典》
-    （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&amp;la=0&amp;webMd=2" rel="noopener" target="_blank">著作權</a>／
-    <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" rel="noopener" target="_blank">授權條款</a>）。
+    （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">著作權</a>／
+    <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）。
     各連結頁內容與權利皆屬原網站所有。
   </small>
 </footer>
+
 <style>
   #legal{margin-top:16px;padding-top:12px;border-top:1px dashed #ddd;color:#555}
   #legal small{font-size:12px;line-height:1.6}
   #legal a{text-decoration:underline}
 </style>
+
 <script>
 // ===== 設定：學期、出版商、年級碼 =====
 const TERMS = [
