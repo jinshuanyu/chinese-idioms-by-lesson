@@ -79,7 +79,7 @@
                                                                                                     
     成語檢索連結至教育部《成語典》
     （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">著作權</a>／
-    <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）。
+    <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）；筆順練習連結至教育部《國字標準字體筆順學習網》（<a href="https://stroke-order.learningweb.moe.edu.tw/page.jsp?ID=52" target="_blank" rel="noopener">版權說明</a>）
     各連結頁內容與權利皆屬原網站所有。
   </small>
 </footer>
@@ -234,11 +234,11 @@ function render(){
   const chars = (window.CURRENT_DATA||{})[les] || [];
   const id = pediaId(term, grade, pub, les);
   const lessonURL = `https://pedia.cloud.edu.tw/Bookmark/TCollection?TextNameId=${id}`;
-  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong> <br> <a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <span class="note">《教育百科》生字詞彙表</span>`;
+  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong> <br> <a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <br> <span class="note">《教育百科》生字詞彙表</span>`;
   (function(){
     const strokeText = encodeURIComponent(chars.join(''));
     const strokeURL = `https://stroke-order.learningweb.moe.edu.tw/searchW.jsp?WORD=${strokeText}&la=0`;
-    $('#meta').insertAdjacentHTML('beforeend', `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a><span class="note">教育部《筆順學習網》</span>`);
+    $('#meta').insertAdjacentHTML('beforeend', `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a><span class="note">教育部國字標準字體筆順學習網</span>`);
   })();
   $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
   const tbody = $('#result tbody');
