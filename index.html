@@ -238,7 +238,7 @@ function render(){
   (function(){
     const strokeText = encodeURIComponent(chars.join(''));
     const strokeURL = `https://stroke-order.learningweb.moe.edu.tw/searchW.jsp?WORD=${strokeText}&la=0`;
-    $('#meta').insertAdjacentHTML('beforeend', `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a><span class="note">教育部國字標準字體筆順學習網</span>`);
+    $('#meta').insertAdjacentHTML('beforeend', `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a><span class="note"> <br> 教育部國字標準字體筆順學習網</span>`);
   })();
   $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
   const tbody = $('#result tbody');
