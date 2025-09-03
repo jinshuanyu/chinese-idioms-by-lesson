@@ -27,6 +27,13 @@
     #meta{margin:10px 0 6px; font-size:15px;}
     #meta a{color:#0d6efd; text-decoration:none; border-bottom:1px dotted #9bbcff;}
     #meta .note{color:var(--muted); font-size:13px; margin-left:6px;}
+    /* 只放大：📖 課名（教育百科） & ✍️ 筆順練習（dictView.jsp） */
+    #meta a[href*="TCollection?TextNameId="],
+    #meta a[href*="dictView.jsp"]{
+      font-size:20px;
+      font-weight:700;
+      line-height:1.6;
+    }
 
     /* 表格與欄位調整 */
     table{width:100%; border-collapse:collapse; margin-top:8px;}
@@ -76,7 +83,6 @@
   <small>
     生字清單來自教育雲「教育百科」
     （<a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">版權說明</a>）；
-                                                                                                    
     成語檢索連結至教育部《成語典》
     （<a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">著作權</a>／
     <a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）；筆順練習連結至教育部《國字標準字體筆順學習網》（<a href="https://stroke-order.learningweb.moe.edu.tw/page.jsp?ID=52" target="_blank" rel="noopener">版權說明</a>）。
@@ -231,20 +237,38 @@ function render(){
   const term=$('#term').value, grade=$('#grade').value, pub=$('#publisher').value, les=$('#lesson').value;
   $('#result tbody').innerHTML='';
   if(!term || !grade || !pub || !les) { $('#meta').textContent=''; $('#stats').textContent=''; return; }
+
   const chars = (window.CURRENT_DATA||{})[les] || [];
   const id = pediaId(term, grade, pub, les);
   const lessonURL = `https://pedia.cloud.edu.tw/Bookmark/TCollection?TextNameId=${id}`;
-  $('#meta').innerHTML = `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong> <br> <a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a> <br> <span class="note">《教育百科》生字詞彙表</span>`;
-  (function(){
-    const strokeText = encodeURIComponent(chars.join(''));
-    const strokeURL = `https://stroke-order.learningweb.moe.edu.tw/searchW.jsp?WORD=${strokeText}&la=0`;
-    $('#meta').insertAdjacentHTML('beforeend', `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a><span class="note"> <br> 教育部國字標準字體筆順學習網</span>`);
-  })();
+
+  // 上方資訊列（先放課名連結與來源說明）
+  $('#meta').innerHTML =
+    `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>
+     <br><a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a>
+     <br><span class="note">《教育百科》生字詞彙表</span>`;
+
+  // ✍️ 筆順練習：有生字才顯示；使用 dictView.jsp 直入生字練習器（逐字模式、1 次）
+  if (Array.isArray(chars) && chars.length){
+    const allChars = chars.join('');
+    const firstId  = allChars.codePointAt(0); // 首字 Unicode 十進位
+    const strokeURL = `https://stroke-order.learningweb.moe.edu.tw/dictView.jsp?ID=${firstId}&WORD=${encodeURIComponent(allChars)}&ID2=1&TP=0`;
+    $('#meta').insertAdjacentHTML(
+      'beforeend',
+      `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a>
+       <span class="note">（生字練習器）</span>`
+    );
+  }
+
+  // 統計
   $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
+
+  // 表格：生字＋成語典
   const tbody = $('#result tbody');
   for(const ch of chars){
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="char">${ch}</td><td class="idioms"><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>`;
+    tr.innerHTML = `<td class="char">${ch}</td>
+                    <td class="idioms"><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>`;
     tbody.appendChild(tr);
   }
 }
