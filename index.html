@@ -157,9 +157,12 @@ function termsSortedDesc(){
   });
 }
 function lessonNo2(label){
+  // 特例處理「魔法文字」當第 0 課
+  if(label.includes("魔法文字")) return '00';
   const m = label.match(/^第(\d{1,2})課/);
   return m ? m[1].padStart(2,'0') : '01';
 }
+
 function idiomLink(ch){ return `https://dict.idioms.moe.edu.tw/idiomList.jsp?idiom=${encodeURIComponent(ch)}`; }
 function expectedLessonsCount(grade, pub){
   if(grade==='一年級'){ return (pub==='康軒') ? 6 : 7; }
