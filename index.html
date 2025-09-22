@@ -4,7 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>生字🔗筆順練習🔗成語</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts: Iansui（芫荽） -->
+  <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -16,16 +21,41 @@
       --card:#ffffff;
       --border:#e5e7eb;
     }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:16px/1.6 ui-sans-serif,system-ui,"Noto Sans TC",PingFangTC,"Microsoft JhengHei",sans-serif;}
+    /* 套用芫荽 Iansui；把 font: 簡寫拆成個別屬性，避免覆蓋 */
+    html,body{
+      margin:0; padding:0;
+      background:var(--bg); color:var(--fg);
+      font-family:"Iansui","Noto Sans TC","PingFang TC","Microsoft JhengHei",ui-sans-serif,system-ui,sans-serif;
+      font-size:16px; line-height:1.6;
+    }
+
     header{padding:20px 16px 8px; text-align:center;}
     header h1{margin:0; font-size:22px; letter-spacing:.5px;}
     header p.sub{margin:6px 0 0; color:var(--muted); font-size:14px;}
     .container{max-width:960px; margin:0 auto; padding:16px;}
     .card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,.04);}
     .row{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:14px;}
-    label{font-weight:600; margin-right:6px;}
+    label{font-weight:500; margin-right:6px;}
     /* 下拉選單字體加大 */
-    select{min-width:140px; padding:8px 10px; border-radius:12px; border:1px solid var(--border); background:#fff; font-size:18px;}
+    /* 讓下拉選單也用芫荽 */
+select, option, optgroup {
+  font-family: "Iansui","Noto Sans TC","PingFang TC","Microsoft JhengHei",ui-sans-serif,system-ui,sans-serif !important;
+  font-size: 18px;   /* 依你需求調整 */
+}
+
+/* 有些瀏覽器需要拿掉原生外觀，才會完整套用字體與樣式 */
+select {
+  appearance: none;          /* 標準 */
+  -webkit-appearance: none;  /* Safari/iOS */
+  -moz-appearance: none;     /* Firefox */
+  padding-right: 2rem;       /* 留空間給自訂箭頭（可選） */
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path d='M5 7l5 6 5-6' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right .6rem center;
+  background-size: 1rem;
+}
+
     #meta{margin:10px 0 6px; font-size:15px;}
     #meta a{color:#0d6efd; text-decoration:none; border-bottom:1px dotted #9bbcff;}
     #meta .note{color:var(--muted); font-size:13px; margin-left:6px;}
@@ -33,7 +63,7 @@
     #meta a[href*="TCollection?TextNameId="],
     #meta a[href*="dictView.jsp"]{
       font-size:20px;
-      font-weight:700;
+      font-weight:500;
       line-height:1.6;
     }
 
@@ -43,7 +73,7 @@
     th{background:#fff; position:sticky; top:0;}
     /* 生字欄更窄、字再大一點點 */
     #result th:first-child{width:6rem;}
-    #result td.char{font-size:24px; font-weight:700; letter-spacing:2px; white-space:nowrap;}
+    #result td.char{font-size:24px; font-weight:500; letter-spacing:2px; white-space:nowrap;}
     /* 成語欄吃剩餘寬度、字體更大 */
     #result thead th{ font-size:17px; }
     #result td.idioms{font-size:20px; line-height:1.9;}
@@ -81,227 +111,226 @@
     </div>
   </div>
 
-<footer id="legal" class="credits leading-snug" style="border-top:0; text-align:center; padding:16px 12px;">
-  <!-- 來源致謝（再小一點，避免搶版面） -->
-  <div style="margin-top:12px; font-size:12px; line-height:1.6; color:#555;">
-    生字清單來自
-    <a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">教育雲「教育百科」</a>；
-    成語檢索連結至
-    <a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">教育部《成語典》</a>
-    （<a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）；
-    筆順練習連結至
-    <a href="https://stroke-order.learningweb.moe.edu.tw/page.jsp?ID=52" target="_blank" rel="noopener">教育部《國字標準字體筆順學習網》</a>。
-    各連結頁內容與權利皆屬原網站所有。
-  </div>
-  <!-- 只縮小這一行的字 -->
-  <div style="font-size:12px; line-height:1.6;">
-    © 2025 Christina Yu. All rights reserved.
-  </div>
+  <footer id="legal" class="credits leading-snug" style="border-top:0; text-align:center; padding:16px 12px;">
+    <!-- 來源致謝（再小一點，避免搶版面） -->
+    <div style="margin-top:12px; font-size:12px; line-height:1.6; color:#555;">
+      生字清單來自
+      <a href="https://pedia.cloud.edu.tw/Home/CopyRight" target="_blank" rel="noopener">教育雲「教育百科」</a>；
+      成語檢索連結至
+      <a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">教育部《成語典》</a>
+      （<a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）；
+      筆順練習連結至
+      <a href="https://stroke-order.learningweb.moe.edu.tw/page.jsp?ID=52" target="_blank" rel="noopener">教育部《國字標準字體筆順學習網》</a>。
+      各連結頁內容與權利皆屬原網站所有。
+    </div>
+    <!-- 只縮小這一行的字 -->
+    <div style="font-size:13px; line-height:1.6;">
+      © 2025 Christina Yu. All rights reserved.
+    </div>
 
-  <!-- Icons：尺寸照舊（fa-2x），不受上面縮小影響 -->
-
+    <!-- Icons：尺寸照舊（fa-2x），不受上面縮小影響 -->
     <div style="margin-top:10px;">
-  <a href="https://www.mamahowma.com/2025/09/Chinesestrokesidiomsbylesson.html" target="_blank" rel="noopener" aria-label="Info"><i class="fa-solid fa-circle-info fa-xl fa-fw"></i></a>　<a href="mailto:mamahowma@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope fa-xl fa-fw"></i></a>　<a href="https://www.facebook.com/mamahowma" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook fa-xl fa-fw"></i></a>　<a href="https://portaly.cc/mamahowma/support" target="_blank" rel="noopener" aria-label="Support"><i class="fa-solid fa-mug-hot fa-xl fa-fw"></i></a>
-</div>
+      <a href="https://www.mamahowma.com/2025/09/Chinesestrokesidiomsbylesson.html" target="_blank" rel="noopener" aria-label="Info"><i class="fa-solid fa-circle-info fa-xl fa-fw"></i></a>　
+      <a href="mailto:mamahowma@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope fa-xl fa-fw"></i></a>　
+      <a href="https://www.facebook.com/mamahowma" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook fa-xl fa-fw"></i></a>　
+      <a href="https://portaly.cc/mamahowma/support" target="_blank" rel="noopener" aria-label="Support"><i class="fa-solid fa-mug-hot fa-xl fa-fw"></i></a>
+    </div>
+  </footer>
 
+  <style>
+    #legal{margin-top:16px;padding-top:12px;border-top:1px dashed #ddd;color:#555}
+    #legal small{font-size:13px;line-height:1.6}
+    #legal a{text-decoration:underline}
+  </style>
 
+  <script>
+  // ===== 設定：學期、出版商、年級碼 =====
+  const TERMS = [
+    { label:"114 學年上學期", code:"11401" }
+  ];
+  const PUB_CODE = { "南一":"0102", "康軒":"0103", "翰林":"0101" };
+  const GRADE_CODE = { "一年級":"01","二年級":"02","三年級":"03","四年級":"04","五年級":"05","六年級":"06" };
 
-</footer>
+  // ===== CATALOG：完整佔位（命名規範：data/11401/data_11401_<出版社>_<年級>.json） =====
+  const CATALOG = {
+    "114 學年上學期": {
+      "一年級": {
+        "康軒": "data/11401/data_11401_康軒_一年級.json",
+        "南一": "data/11401/data_11401_南一_一年級.json",
+        "翰林": "data/11401/data_11401_翰林_一年級.json"
+      },
+      "二年級": {
+        "康軒": "data/11401/data_11401_康軒_二年級.json",
+        "南一": "data/11401/data_11401_南一_二年級.json",
+        "翰林": "data/11401/data_11401_翰林_二年級.json"
+      },
+      "三年級": {
+        "康軒": "data/11401/data_11401_康軒_三年級.json",
+        "南一": "data/11401/data_11401_南一_三年級.json",
+        "翰林": "data/11401/data_11401_翰林_三年級.json"
+      },
+      "四年級": {
+        "康軒": "data/11401/data_11401_康軒_四年級.json",
+        "南一": "data/11401/data_11401_南一_四年級.json",
+        "翰林": "data/11401/data_11401_翰林_四年級.json"
+      },
+      "五年級": {
+        "康軒": "data/11401/data_11401_康軒_五年級.json",
+        "南一": "data/11401/data_11401_南一_五年級.json",
+        "翰林": "data/11401/data_11401_翰林_五年級.json"
+      },
+      "六年級": {
+        "康軒": "data/11401/data_11401_康軒_六年級.json",
+        "南一": "data/11401/data_11401_南一_六年級.json",
+        "翰林": "data/11401/data_11401_翰林_六年級.json"
+      }
+    }
+  };
 
-<style>
-  #legal{margin-top:16px;padding-top:12px;border-top:1px dashed #ddd;color:#555}
-  #legal small{font-size:12px;line-height:1.6}
-  #legal a{text-decoration:underline}
-</style>
+  // ===== 工具函式 =====
+  const $ = sel => document.querySelector(sel);
+  function termCode(label){ const t=TERMS.find(x=>x.label===label); return t ? t.code : ""; }
+  function parseTerm(label){
+    if(!label) return {year:0, sem:1};
+    let idx = label.indexOf('學年度');
+    if(idx < 0) idx = label.indexOf('學年'); // 兼容「學年」寫法
+    const year = idx>0 ? parseInt(label.slice(0, idx).trim(), 10) : 0;
+    const sem = (label.includes('上學期')||label.includes('第一學期')) ? 1 : 2;
+    return {year, sem};
+  }
+  function termsSortedDesc(){
+    return TERMS.map(t=>t.label).sort((a,b)=>{
+      const A=parseTerm(a), B=parseTerm(b);
+      if(B.year!==A.year) return B.year-A.year;
+      return B.sem-A.sem;
+    });
+  }
+  function lessonNo2(label){
+    // 特例處理「魔法文字」當第 0 課
+    if(label.includes("魔法文字")) return '00';
+    const m = label.match(/^第(\d{1,2})課/);
+    return m ? m[1].padStart(2,'0') : '01';
+  }
 
-<script>
-// ===== 設定：學期、出版商、年級碼 =====
-const TERMS = [
-  { label:"114 學年上學期", code:"11401" }
-];
-const PUB_CODE = { "南一":"0102", "康軒":"0103", "翰林":"0101" };
-const GRADE_CODE = { "一年級":"01","二年級":"02","三年級":"03","四年級":"04","五年級":"05","六年級":"06" };
+  function idiomLink(ch){ return `https://dict.idioms.moe.edu.tw/idiomList.jsp?idiom=${encodeURIComponent(ch)}`; }
+  function expectedLessonsCount(grade, pub){
+    if(grade==='一年級'){ return (pub==='康軒') ? 6 : 7; }
+    return 12;
+  }
+  function pediaId(termLabel, gradeLabel, pubLabel, lessonLabel){
+    const pub = PUB_CODE[pubLabel] || "";
+    const grade = GRADE_CODE[gradeLabel] || "";
+    const tcode = termCode(termLabel) || "";
+    const les = lessonNo2(lessonLabel);
+    return `${pub}${grade}${tcode}${les}`;
+  }
 
-// ===== CATALOG：完整佔位（命名規範：data/11401/data_11401_<出版社>_<年級>.json） =====
-const CATALOG = {
-  "114 學年上學期": {
-    "一年級": {
-      "康軒": "data/11401/data_11401_康軒_一年級.json",
-      "南一": "data/11401/data_11401_南一_一年級.json",
-      "翰林": "data/11401/data_11401_翰林_一年級.json"
-    },
-    "二年級": {
-      "康軒": "data/11401/data_11401_康軒_二年級.json",
-      "南一": "data/11401/data_11401_南一_二年級.json",
-      "翰林": "data/11401/data_11401_翰林_二年級.json"
-    },
-    "三年級": {
-      "康軒": "data/11401/data_11401_康軒_三年級.json",
-      "南一": "data/11401/data_11401_南一_三年級.json",
-      "翰林": "data/11401/data_11401_翰林_三年級.json"
-    },
-    "四年級": {
-      "康軒": "data/11401/data_11401_康軒_四年級.json",
-      "南一": "data/11401/data_11401_南一_四年級.json",
-      "翰林": "data/11401/data_11401_翰林_四年級.json"
-    },
-    "五年級": {
-      "康軒": "data/11401/data_11401_康軒_五年級.json",
-      "南一": "data/11401/data_11401_南一_五年級.json",
-      "翰林": "data/11401/data_11401_翰林_五年級.json"
-    },
-    "六年級": {
-      "康軒": "data/11401/data_11401_康軒_六年級.json",
-      "南一": "data/11401/data_11401_南一_六年級.json",
-      "翰林": "data/11401/data_11401_翰林_六年級.json"
+  // ===== 載入 JSON（無 FALLBACK 生字；抓不到就回空物件） =====
+  const CACHE = new Map();
+  async function ensureDataset(term, grade, pub){
+    const key = `${term}|${grade}|${pub}`;
+    if(CACHE.has(key)) return CACHE.get(key);
+    let data = {};
+    const url = (CATALOG?.[term]?.[grade]?.[pub]) || (CATALOG?.[termCode(term)]?.[grade]?.[pub]);
+    if(url){
+      try{
+        const res = await fetch(encodeURI(url), {cache:'no-cache'});
+        if(res.ok) data = await res.json();
+      }catch(e){}
+    }
+    CACHE.set(key, data);
+    return data;
+  }
+
+  // ===== UI：初始化與事件 =====
+  function resetSelect(id){ $(id).innerHTML = '<option value="">—</option>'; }
+
+  function init(){
+    const termSel = $('#term');
+    termSel.innerHTML = termsSortedDesc().map(x=>`<option>${x}</option>`).join('');
+    termSel.value = "114 學年上學期";
+    updateGrades();
+  }
+
+  function updateGrades(){
+    resetSelect('#grade'); resetSelect('#publisher'); resetSelect('#lesson');
+    $('#meta').textContent=''; $('#stats').textContent='';
+    const term=$('#term').value;
+    const grades = term ? Object.keys(CATALOG[term] || CATALOG[termCode(term)] || {}) : [];
+    $('#grade').innerHTML = '<option value="">— 請選擇年級 —</option>' + grades.map(g=>`<option>${g}</option>`).join('');
+  }
+
+  function updatePublishers(){
+    resetSelect('#publisher'); resetSelect('#lesson');
+    $('#meta').textContent=''; $('#stats').textContent='';
+    const term=$('#term').value, grade=$('#grade').value;
+    const pubs = (term && grade) ? Object.keys((CATALOG[term] || CATALOG[termCode(term)] || {})[grade] || {}) : [];
+    $('#publisher').innerHTML = '<option value="">— 請選擇版本 —</option>' + pubs.map(p=>`<option>${p}</option>`).join('');
+  }
+
+  async function updateLessons(){
+    resetSelect('#lesson'); $('#meta').textContent=''; $('#stats').textContent='';
+    const term=$('#term').value, grade=$('#grade').value, pub=$('#publisher').value;
+    if(!term || !grade || !pub) return;
+    const data = await ensureDataset(term, grade, pub);
+    window.CURRENT_DATA = data;
+    let lessons = Object.keys(data||{});
+    if(!lessons.length){
+      const n = expectedLessonsCount(grade, pub);
+      lessons = Array.from({length:n}, (_,i)=>`第${String(i+1).padStart(2,'0')}課`);
+    }
+    lessons.sort((a,b)=> (parseInt(lessonNo2(a),10) - parseInt(lessonNo2(b),10)) );
+    $('#lesson').innerHTML = '<option value="">— 請選擇課別 —</option>' + lessons.map(l=>`<option>${l}</option>`).join('');
+  }
+
+  function render(){
+    const term=$('#term').value, grade=$('#grade').value, pub=$('#publisher').value, les=$('#lesson').value;
+    $('#result tbody').innerHTML='';
+    if(!term || !grade || !pub || !les) { $('#meta').textContent=''; $('#stats').textContent=''; return; }
+
+    const chars = (window.CURRENT_DATA||{})[les] || [];
+    const id = pediaId(term, grade, pub, les);
+    const lessonURL = `https://pedia.cloud.edu.tw/Bookmark/TCollection?TextNameId=${id}`;
+
+    // 上方資訊列（先放課名連結與來源說明）
+    $('#meta').innerHTML =
+      `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>
+       <br><a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a>
+       <br><span class="note">《教育百科》生字詞彙表</span>`;
+
+    // ✍️ 筆順練習：有生字才顯示；使用 dictView.jsp 直入生字練習器（逐字模式、1 次）
+    if (Array.isArray(chars) && chars.length){
+      const allChars = chars.join('');
+      const firstId  = allChars.codePointAt(0); // 首字 Unicode 十進位
+      const strokeURL = `https://stroke-order.learningweb.moe.edu.tw/dictView.jsp?ID=${firstId}&WORD=${encodeURIComponent(allChars)}&ID2=1&TP=0`;
+      $('#meta').insertAdjacentHTML(
+        'beforeend',
+        `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a>
+         <span class="note">（生字練習器）</span>`
+      );
+    }
+
+    // 統計
+    $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
+
+    // 表格：生字＋成語典
+    const tbody = $('#result tbody');
+    for(const ch of chars){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="char">${ch}</td>
+                      <td class="idioms"><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>`;
+      tbody.appendChild(tr);
     }
   }
-};
 
-// ===== 工具函式 =====
-const $ = sel => document.querySelector(sel);
-function termCode(label){ const t=TERMS.find(x=>x.label===label); return t ? t.code : ""; }
-function parseTerm(label){
-  if(!label) return {year:0, sem:1};
-  let idx = label.indexOf('學年度');
-  if(idx < 0) idx = label.indexOf('學年'); // 兼容「學年」寫法
-  const year = idx>0 ? parseInt(label.slice(0, idx).trim(), 10) : 0;
-  const sem = (label.includes('上學期')||label.includes('第一學期')) ? 1 : 2;
-  return {year, sem};
-}
-function termsSortedDesc(){
-  return TERMS.map(t=>t.label).sort((a,b)=>{
-    const A=parseTerm(a), B=parseTerm(b);
-    if(B.year!==A.year) return B.year-A.year;
-    return B.sem-A.sem;
-  });
-}
-function lessonNo2(label){
-  // 特例處理「魔法文字」當第 0 課
-  if(label.includes("魔法文字")) return '00';
-  const m = label.match(/^第(\d{1,2})課/);
-  return m ? m[1].padStart(2,'0') : '01';
-}
+  // 綁定
+  $('#term').addEventListener('change', ()=>{ updateGrades(); });
+  $('#grade').addEventListener('change', ()=>{ updatePublishers(); });
+  $('#publisher').addEventListener('change', async ()=>{ await updateLessons(); });
+  $('#lesson').addEventListener('change', render);
 
-function idiomLink(ch){ return `https://dict.idioms.moe.edu.tw/idiomList.jsp?idiom=${encodeURIComponent(ch)}`; }
-function expectedLessonsCount(grade, pub){
-  if(grade==='一年級'){ return (pub==='康軒') ? 6 : 7; }
-  return 12;
-}
-function pediaId(termLabel, gradeLabel, pubLabel, lessonLabel){
-  const pub = PUB_CODE[pubLabel] || "";
-  const grade = GRADE_CODE[gradeLabel] || "";
-  const tcode = termCode(termLabel) || "";
-  const les = lessonNo2(lessonLabel);
-  return `${pub}${grade}${tcode}${les}`;
-}
-
-// ===== 載入 JSON（無 FALLBACK 生字；抓不到就回空物件） =====
-const CACHE = new Map();
-async function ensureDataset(term, grade, pub){
-  const key = `${term}|${grade}|${pub}`;
-  if(CACHE.has(key)) return CACHE.get(key);
-  let data = {};
-  const url = (CATALOG?.[term]?.[grade]?.[pub]) || (CATALOG?.[termCode(term)]?.[grade]?.[pub]);
-  if(url){
-    try{
-      const res = await fetch(encodeURI(url), {cache:'no-cache'});
-      if(res.ok) data = await res.json();
-    }catch(e){}
-  }
-  CACHE.set(key, data);
-  return data;
-}
-
-// ===== UI：初始化與事件 =====
-function resetSelect(id){ $(id).innerHTML = '<option value="">—</option>'; }
-
-function init(){
-  const termSel = $('#term');
-  termSel.innerHTML = termsSortedDesc().map(x=>`<option>${x}</option>`).join('');
-  termSel.value = "114 學年上學期";
-  updateGrades();
-}
-
-function updateGrades(){
-  resetSelect('#grade'); resetSelect('#publisher'); resetSelect('#lesson');
-  $('#meta').textContent=''; $('#stats').textContent='';
-  const term=$('#term').value;
-  const grades = term ? Object.keys(CATALOG[term] || CATALOG[termCode(term)] || {}) : [];
-  $('#grade').innerHTML = '<option value="">— 請選擇年級 —</option>' + grades.map(g=>`<option>${g}</option>`).join('');
-}
-
-function updatePublishers(){
-  resetSelect('#publisher'); resetSelect('#lesson');
-  $('#meta').textContent=''; $('#stats').textContent='';
-  const term=$('#term').value, grade=$('#grade').value;
-  const pubs = (term && grade) ? Object.keys((CATALOG[term] || CATALOG[termCode(term)] || {})[grade] || {}) : [];
-  $('#publisher').innerHTML = '<option value="">— 請選擇版本 —</option>' + pubs.map(p=>`<option>${p}</option>`).join('');
-}
-
-async function updateLessons(){
-  resetSelect('#lesson'); $('#meta').textContent=''; $('#stats').textContent='';
-  const term=$('#term').value, grade=$('#grade').value, pub=$('#publisher').value;
-  if(!term || !grade || !pub) return;
-  const data = await ensureDataset(term, grade, pub);
-  window.CURRENT_DATA = data;
-  let lessons = Object.keys(data||{});
-  if(!lessons.length){
-    const n = expectedLessonsCount(grade, pub);
-    lessons = Array.from({length:n}, (_,i)=>`第${String(i+1).padStart(2,'0')}課`);
-  }
-  lessons.sort((a,b)=> (parseInt(lessonNo2(a),10) - parseInt(lessonNo2(b),10)) );
-  $('#lesson').innerHTML = '<option value="">— 請選擇課別 —</option>' + lessons.map(l=>`<option>${l}</option>`).join('');
-}
-
-function render(){
-  const term=$('#term').value, grade=$('#grade').value, pub=$('#publisher').value, les=$('#lesson').value;
-  $('#result tbody').innerHTML='';
-  if(!term || !grade || !pub || !les) { $('#meta').textContent=''; $('#stats').textContent=''; return; }
-
-  const chars = (window.CURRENT_DATA||{})[les] || [];
-  const id = pediaId(term, grade, pub, les);
-  const lessonURL = `https://pedia.cloud.edu.tw/Bookmark/TCollection?TextNameId=${id}`;
-
-  // 上方資訊列（先放課名連結與來源說明）
-  $('#meta').innerHTML =
-    `<strong>${term}</strong>｜<strong>${grade}</strong>｜<strong>${pub}</strong>
-     <br><a href="${lessonURL}" target="_blank" rel="noopener">📖 ${les}</a>
-     <br><span class="note">《教育百科》生字詞彙表</span>`;
-
-  // ✍️ 筆順練習：有生字才顯示；使用 dictView.jsp 直入生字練習器（逐字模式、1 次）
-  if (Array.isArray(chars) && chars.length){
-    const allChars = chars.join('');
-    const firstId  = allChars.codePointAt(0); // 首字 Unicode 十進位
-    const strokeURL = `https://stroke-order.learningweb.moe.edu.tw/dictView.jsp?ID=${firstId}&WORD=${encodeURIComponent(allChars)}&ID2=1&TP=0`;
-    $('#meta').insertAdjacentHTML(
-      'beforeend',
-      `<br><a href="${strokeURL}" target="_blank" rel="noopener">✍️ 筆順練習</a>
-       <span class="note">（生字練習器）</span>`
-    );
-  }
-
-  // 統計
-  $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
-
-  // 表格：生字＋成語典
-  const tbody = $('#result tbody');
-  for(const ch of chars){
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="char">${ch}</td>
-                    <td class="idioms"><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>`;
-    tbody.appendChild(tr);
-  }
-}
-
-// 綁定
-$('#term').addEventListener('change', ()=>{ updateGrades(); });
-$('#grade').addEventListener('change', ()=>{ updatePublishers(); });
-$('#publisher').addEventListener('change', async ()=>{ await updateLessons(); });
-$('#lesson').addEventListener('change', render);
-
-// 啟動
-init();
-</script>
+  // 啟動
+  init();
+  </script>
 </body>
 </html>
