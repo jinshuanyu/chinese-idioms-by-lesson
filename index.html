@@ -173,6 +173,7 @@ option, optgroup{
   <script>
   // ===== 設定：學期、出版商、年級碼 =====
   const TERMS = [
+    { label:"114 學年下學期", code:"11402" },
     { label:"114 學年上學期", code:"11401" },
     { label:"113 學年下學期", code:"11302" }
   ];
@@ -181,6 +182,38 @@ option, optgroup{
 
   // ===== CATALOG：完整佔位（命名規範：data/{學期代碼}/data_{學期代碼}_{出版社}_{年級}.json） =====
   const CATALOG = {
+    "11402": {
+      "一年級": {
+        "康軒": "data/11402/data_11402_康軒_一年級.json",
+        "南一": "data/11402/data_11402_南一_一年級.json",
+        "翰林": "data/11402/data_11402_翰林_一年級.json"
+      },
+      "二年級": {
+        "康軒": "data/11402/data_11402_康軒_二年級.json",
+        "南一": "data/11402/data_11402_南一_二年級.json",
+        "翰林": "data/11402/data_11402_翰林_二年級.json"
+      },
+      "三年級": {
+        "康軒": "data/11402/data_11402_康軒_三年級.json",
+        "南一": "data/11402/data_11402_南一_三年級.json",
+        "翰林": "data/11402/data_11402_翰林_三年級.json"
+      },
+      "四年級": {
+        "康軒": "data/11402/data_11402_康軒_四年級.json",
+        "南一": "data/11402/data_11402_南一_四年級.json",
+        "翰林": "data/11402/data_11402_翰林_四年級.json"
+      },
+      "五年級": {
+        "康軒": "data/11402/data_11402_康軒_五年級.json",
+        "南一": "data/11402/data_11402_南一_五年級.json",
+        "翰林": "data/11402/data_11402_翰林_五年級.json"
+      },
+      "六年級": {
+        "康軒": "data/11402/data_11402_康軒_六年級.json",
+        "南一": "data/11402/data_11402_南一_六年級.json",
+        "翰林": "data/11402/data_11402_翰林_六年級.json"
+      }
+    },
     "11401": {
       "一年級": {
         "康軒": "data/11401/data_11401_康軒_一年級.json",
@@ -308,7 +341,7 @@ option, optgroup{
   function init(){
     const termSel = $('#term');
     termSel.innerHTML = termsSortedDesc().map(x=>`<option>${x}</option>`).join('');
-    termSel.value = "114 學年上學期";
+    termSel.value = "114 學年下學期";
     updateGrades();
   }
 
