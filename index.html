@@ -194,6 +194,9 @@ option, optgroup{
     #legal{margin-top:16px;padding-top:12px;border-top:1px dashed #ddd;color:#555}
     #legal small{font-size:13px;line-height:1.6}
     #legal a{text-decoration:underline}
+    /* 聯絡資訊 icon：降低彩度，不要瀏覽器預設的純藍 */
+    #legal a[aria-label]{color:#6b86b8; transition:color .15s ease;}
+    #legal a[aria-label]:hover{color:#4a669a;}
   </style>
 
   <script>
