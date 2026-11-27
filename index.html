@@ -77,6 +77,16 @@ select {
     /* 成語欄吃剩餘寬度、字體更大 */
     #result thead th{ font-size:17px; }
     #result td.idioms{font-size:20px; line-height:1.9;}
+    /* 花瓣識字欄：窄、不換行 */
+    #result th.blossom{width:5.5rem; white-space:nowrap; text-align:center;}
+    #result td.blossom{font-size:26px; text-align:center;}
+    #result td.blossom a{display:inline-block; padding:2px 8px;}
+    /* 手機：三欄塞得下，成語連結不折行 */
+    @media (max-width:480px){
+      #result th:first-child{width:3.2rem;}
+      #result th.blossom{width:4.8rem;}
+      #result td.idioms{font-size:18px; white-space:nowrap;}
+    }
 
     td a{color:#0d6efd; text-decoration:none;}
     .muted{color:var(--muted); font-size:12px;}
@@ -114,7 +124,7 @@ option, optgroup{
 <body>
   <header>
     <h1>生字🔗筆順練習🔗成語</h1>
-    <p class="sub">⏬ 選 <b>學期</b> → <b>年級</b> → <b>版本</b> → <b>課別</b> <br> 🔍 查看生字的<b>筆順</b>和<b>成語</b>連結</p>
+    <p class="sub">⏬ 選 <b>學期</b> → <b>年級</b> → <b>版本</b> → <b>課別</b> <br> 🔍 查看生字的<b>筆順</b>、<b>成語</b>和<b>部件識字</b>連結</p>
   </header>
 
   <div class="container">
@@ -131,7 +141,7 @@ option, optgroup{
 
       <table id="result">
         <thead>
-          <tr><th>生字</th><th>《成語典》</th></tr>
+          <tr><th>生字</th><th>《成語典》</th><th class="blossom">部件識字</th></tr>
         </thead>
         <tbody></tbody>
       </table>
@@ -147,7 +157,9 @@ option, optgroup{
       <a href="https://dict.idioms.moe.edu.tw/pageView.jsp?ID=44&la=0&webMd=2" target="_blank" rel="noopener">教育部《成語典》</a>
       （<a href="https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/idiomsdict_10409.pdf" target="_blank" rel="noopener">授權條款</a>）；
       筆順練習連結至
-      <a href="https://stroke-order.learningweb.moe.edu.tw/page.jsp?ID=52" target="_blank" rel="noopener">教育部《國字標準字體筆順學習網》</a>。
+      <a href="https://stroke-order.learningweb.moe.edu.tw/page.jsp?ID=52" target="_blank" rel="noopener">教育部《國字標準字體筆順學習網》</a>；
+      部件識字連結至
+      <a href="https://jinshuanyu.github.io/chinese-character-blossom-finder/" target="_blank" rel="noopener">花瓣識字：部件字族查詢</a>。
       各連結頁內容與權利皆屬原網站所有。
     </div>
     <div style="text-align:center; margin:16px 0 8px;">
@@ -352,6 +364,15 @@ option, optgroup{
     return m ? m[1].padStart(2,'0') : '01';
   }
 
+  // ===== 花瓣識字：讀取它的字庫，生字有收錄就加外連 =====
+  // 直接讀花瓣識字的 index.html，之後花瓣識字加字，這裡會自動跟著更新
+  const BLOSSOM_URL = 'https://jinshuanyu.github.io/chinese-character-blossom-finder/';
+  const BLOSSOM_SET = fetch('../chinese-character-blossom-finder/index.html', {cache:'no-cache'})
+    .then(r => r.ok ? r.text() : '')
+    .then(html => new Set([...html.matchAll(/char\s*:\s*"([^"]+)"/g)].map(m => m[1])))
+    .catch(() => new Set());
+  function blossomLink(ch){ return `${BLOSSOM_URL}?char=${encodeURIComponent(ch)}`; }
+
   function idiomLink(ch){ return `https://dict.idioms.moe.edu.tw/idiomList.jsp?idiom=${encodeURIComponent(ch)}`; }
   function expectedLessonsCount(grade, pub){
     if(grade==='一年級'){ return (pub==='康軒') ? 6 : 7; }
@@ -423,7 +444,7 @@ option, optgroup{
     $('#lesson').innerHTML = '<option value="">— 請選擇課別 —</option>' + lessons.map(l=>`<option>${l}</option>`).join('');
   }
 
-  function render(){
+  async function render(){
     const term=$('#term').value, grade=$('#grade').value, pub=$('#publisher').value, les=$('#lesson').value;
     $('#result tbody').innerHTML='';
     if(!term || !grade || !pub || !les) { $('#meta').textContent=''; $('#stats').textContent=''; return; }
@@ -453,12 +474,19 @@ option, optgroup{
     // 統計
     $('#stats').textContent = chars.length ? `　共 ${chars.length} 個生字` : '';
 
-    // 表格：生字＋成語典
+    // 表格：生字＋成語典＋花瓣識字
+    const blossom = await BLOSSOM_SET;
+    if($('#lesson').value !== les) return;   // 等待期間使用者已換課，就不畫舊的
     const tbody = $('#result tbody');
+    tbody.innerHTML = '';
     for(const ch of chars){
       const tr = document.createElement('tr');
+      const blossomCell = blossom.has(ch)
+        ? `<a href="${blossomLink(ch)}" target="_blank" rel="noopener" title="打開「${ch}」的部件字族" aria-label="打開「${ch}」的部件字族">🌸</a>`
+        : '';
       tr.innerHTML = `<td class="char">${ch}</td>
-                      <td class="idioms"><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>`;
+                      <td class="idioms"><a href="${idiomLink(ch)}" target="_blank" rel="noopener">成語檢索「${ch}」</a></td>
+                      <td class="blossom">${blossomCell}</td>`;
       tbody.appendChild(tr);
     }
   }
